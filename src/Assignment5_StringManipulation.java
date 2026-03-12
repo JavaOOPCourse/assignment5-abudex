@@ -1,4 +1,7 @@
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Arrays;
+import java.util.Stack;
 
 public class Assignment5_StringManipulation {
 
@@ -52,7 +55,12 @@ public class Assignment5_StringManipulation {
 
         // TODO: Подсчитать количество гласных (a, e, i, o, u)
         int count = 0;
-
+        ArrayList<Character> arr = new ArrayList<>(Arrays.asList('a', 'e', 'i', 'o', 'u'));
+        for (char i: input.toCharArray()){
+            if (arr.contains(i)){
+                count += 1;
+            }
+        }
         System.out.println("Number of vowels: " + count);
     }
 
@@ -62,9 +70,11 @@ public class Assignment5_StringManipulation {
         String input = scanner.nextLine();
 
         // TODO: Вывести строку в обратном порядке
-        String reversed = "";
-
-        System.out.println(reversed);
+        StringBuilder reversed = new StringBuilder();
+        Stack<Character> s = new Stack<>();
+        for (char i : input.toCharArray()) s.push(i);
+        while (!s.isEmpty()) reversed.append(s.pop());
+        System.out.println(reversed.toString());
     }
 
     // ===================== TASK 3 =====================
@@ -74,7 +84,8 @@ public class Assignment5_StringManipulation {
 
         // TODO: Проверить, является ли строка палиндромом (игнорировать регистр)
         boolean isPalindrome = false;
-
+        String result = new StringBuilder(input).reverse().toString();
+        isPalindrome = input.equalsIgnoreCase(result);
         System.out.println(isPalindrome ? "Yes" : "No");
     }
 
@@ -85,6 +96,8 @@ public class Assignment5_StringManipulation {
 
         // TODO: Подсчитать количество слов в предложении
         int wordCount = 0;
+        String[] arr = sentence.split(" ");
+        wordCount = arr.length;
 
         System.out.println("Number of words: " + wordCount);
     }
@@ -96,7 +109,8 @@ public class Assignment5_StringManipulation {
 
         // TODO: Удалить все пробелы из строки
         String noSpaces = "";
-
+        String[] arr = input.split(" ");
+        noSpaces = String.join("", arr);
         System.out.println(noSpaces);
     }
 
