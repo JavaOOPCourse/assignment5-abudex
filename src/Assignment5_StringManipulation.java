@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Stack;
 
 public class Assignment5_StringManipulation {
@@ -122,6 +123,10 @@ public class Assignment5_StringManipulation {
         // TODO: Преобразовать первую букву каждого слова в заглавную
         String result = "";
 
+        String[] arr = sentence.split(" ");
+        for (int i = 0; i < arr.length; i++){
+            result += Character.toUpperCase(arr[i].charAt(0)) + arr[i].substring(1) + " ";
+        }
         System.out.println(result);
     }
 
@@ -132,7 +137,21 @@ public class Assignment5_StringManipulation {
 
         // TODO: Найти символ, который встречается чаще всего
         char mostFrequent = ' ';
-
+        int high = 0;
+        HashMap<Character, Integer> map = new HashMap<>();
+        for (char i : input.toCharArray()){
+            if (map.containsKey(i)){
+                map.put(i, map.get(i) + 1);
+            } else {
+                map.put(i, 1);
+            }
+        }
+        for (char key : map.keySet()){
+            if (map.get(key) > high){
+                high = map.get(key);
+                mostFrequent = key;
+            }
+        }
         System.out.println("The most frequent character is: " + mostFrequent);
     }
 
@@ -144,8 +163,34 @@ public class Assignment5_StringManipulation {
         String str2 = scanner.nextLine();
 
         // TODO: Проверить, являются ли две строки анаграммами (игнорировать пробелы и регистр)
-        boolean areAnagrams = false;
+        boolean areAnagrams = true;
 
+        String first = str1.toLowerCase().replace(" ", "");
+        String second = str2.toLowerCase().replace(" ", "");
+
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        for (char i : first.toCharArray()){
+            if (map.containsKey(i)){
+                map.put(i, map.get(i) + 1);
+            } else {
+                map.put(i, 1);
+            }
+        }
+
+        for (char i : second.toCharArray()){
+            if (map.containsKey(i)){
+                map.put(i, map.get(i) - 1);
+            } else {
+                areAnagrams = false;
+            }
+        }
+
+        for (char key : map.keySet()){
+            if (map.get(key) != 0) {
+                areAnagrams = false;
+            }
+        }
         System.out.println(areAnagrams ? "Yes" : "No");
     }
 }
